@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:smartled="clr-namespace:SmartLED"
+             mc:Ignorable="d" x:Class="SmartLED.MainPage"
+             NavigationPage.HasNavigationBar="True"
+             Title="Telit Bluetooth">
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand">
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     Padding="10"
+                     BackgroundColor="White">
+            <Button HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    BackgroundColor="#FFAE00"
+                    Text="SCAN"
+                    Command="{Binding ScanCommand}"/>
+            <ListView HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      BackgroundColor="Transparent"
+                      ItemsSource="{Binding DeviceList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell IsEnabled="False">
+                            <Frame HasShadow="False"
+                                   HorizontalOptions="FillAndExpand"
+                                   CornerRadius="10"
+                                   BackgroundColor="LightGray">
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label TextColor="Black"
+                                           Text="{Binding Name}"
+                                           FontSize="14"/>
+                                    <Label TextColor="Gray"
+                                           Text="{Binding Address}"
+                                           FontSize="12"/>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+        <smartled:LoadingView/>
+    </Grid>
+</ContentPage>

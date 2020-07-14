@@ -16,7 +16,7 @@ namespace SmartLED.Droid
 
         public void OnPeripheralFound(ITIOPeripheral p0)
         {
-            Application.Current.MainPage.DisplayAlert("", "Device found", "Ok");
+            //Application.Current.MainPage.DisplayAlert("", "Device found", "Ok");
             TelitDevice device = new TelitDevice
             {
                 Name = p0.Name,
@@ -27,7 +27,13 @@ namespace SmartLED.Droid
 
         public void OnPeripheralUpdate(ITIOPeripheral p0)
         {
-            Application.Current.MainPage.DisplayAlert("", "Device updated", "Ok");
+            //Application.Current.MainPage.DisplayAlert("", "Device updated", "Ok");
+            TelitDevice device = new TelitDevice
+            {
+                Name = p0.Name,
+                Address = p0.Address
+            };
+            _onDevicesFound?.Invoke(device);
         }
     }
 }

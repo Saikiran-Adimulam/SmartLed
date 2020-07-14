@@ -26,16 +26,21 @@ namespace SmartLED
         }
 
         public ICommand ScanCommand { get; private set; }
+        public ICommand DeviceSelectedCommand { get; private set; }
 
         public MainViewModel()
         {
             telitService = DependencyService.Resolve<ITelitService>();
             ScanCommand = new Command(OnScanTapped);
+            DeviceSelectedCommand = new Command<TelitDevice>(OnDeviceSelected);
             _onDevicesFound = HandleDeviceFound;
         }
 
         public void OnNavigatedTo()
         {
+            //DeviceList.Add(new TelitDevice { Name = "LAKA1", Address = "CD:EE:FF:GG" });
+            //DeviceList.Add(new TelitDevice { Name = "LAKA2", Address = "KJ:EE:FF:GG" });
+
             telitService.Initialize();
         }
 
@@ -48,6 +53,11 @@ namespace SmartLED
                 await Task.Delay(3000);
                 IsBusy = false;
             });
+        }
+
+        private void OnDeviceSelected(TelitDevice device)
+        {
+            Application.Current.MainPage.DisplayAlert("", "Coming soon...", "Ok");
         }
 
         private void HandleDeviceFound(TelitDevice device)

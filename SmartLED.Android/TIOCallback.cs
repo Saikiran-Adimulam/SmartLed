@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Com.Telit.Terminalio;
 using SmartLED.TelitManager;
 using Xamarin.Forms;
@@ -14,24 +15,38 @@ namespace SmartLED.Droid
             _onDevicesFound = onDevicesFound;
         }
 
-        public void OnPeripheralFound(ITIOPeripheral p0)
+        public void OnPeripheralFound(ITIOPeripheral peripheral)
         {
+            var lightExists = TelitServiceAndroid.LightPeripherals?
+                .FirstOrDefault(x => x.Name == peripheral.Name &&
+                x.Address == peripheral.Address);
+            if (lightExists == null)
+            {
+                TelitServiceAndroid.LightPeripherals.Add(peripheral);
+            }
             //Application.Current.MainPage.DisplayAlert("", "Device found", "Ok");
             TelitDevice device = new TelitDevice
             {
-                Name = p0.Name,
-                Address = p0.Address
+                Name = peripheral.Name,
+                Address = peripheral.Address
             };
             _onDevicesFound?.Invoke(device);
         }
 
-        public void OnPeripheralUpdate(ITIOPeripheral p0)
+        public void OnPeripheralUpdate(ITIOPeripheral peripheral)
         {
+            var lightExists = TelitServiceAndroid.LightPeripherals?
+                .FirstOrDefault(x => x.Name == peripheral.Name &&
+                x.Address == peripheral.Address);
+            if(lightExists == null)
+            {
+                TelitServiceAndroid.LightPeripherals.Add(peripheral);
+            }
             //Application.Current.MainPage.DisplayAlert("", "Device updated", "Ok");
             TelitDevice device = new TelitDevice
             {
-                Name = p0.Name,
-                Address = p0.Address
+                Name = peripheral.Name,
+                Address = peripheral.Address
             };
             _onDevicesFound?.Invoke(device);
         }

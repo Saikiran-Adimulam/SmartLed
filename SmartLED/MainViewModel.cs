@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SmartLED.TelitManager;
@@ -52,6 +53,8 @@ namespace SmartLED
             {
                 await Task.Delay(3000);
                 IsBusy = false;
+                await Task.Delay(10000);
+                telitService.StopScan();
             });
         }
 
@@ -62,7 +65,8 @@ namespace SmartLED
 
         private void HandleDeviceFound(TelitDevice device)
         {
-            if(!DeviceList.Contains(device))
+            var deviceExists = DeviceList?.FirstOrDefault(x => x.Address == device.Address && x.Name == device.Name);
+            if(deviceExists == null)
             {
                 DeviceList.Add(device);
             }

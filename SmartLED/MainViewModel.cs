@@ -39,9 +39,7 @@ namespace SmartLED
 
         public void OnNavigatedTo()
         {
-            //DeviceList.Add(new TelitDevice { Name = "LAKA1", Address = "CD:EE:FF:GG" });
-            //DeviceList.Add(new TelitDevice { Name = "LAKA2", Address = "KJ:EE:FF:GG" });
-
+            //DeviceList.Add(new TelitDevice { Name = "LAKA1", Address = "AB:E9:DE:F3" });
             telitService.Initialize();
         }
 
@@ -58,9 +56,20 @@ namespace SmartLED
             });
         }
 
-        private void OnDeviceSelected(TelitDevice device)
+        private async void OnDeviceSelected(TelitDevice device)
         {
-            Application.Current.MainPage.DisplayAlert("", "Coming soon...", "Ok");
+            IsBusy = true;
+            bool isConnected = await telitService.Connect(device);
+            IsBusy = false;
+
+            if(isConnected)
+            {
+                await App.Navigation.PushAsync(new LightPage(device));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("", "Failed to connect", "Ok");
+            }
         }
 
         private void HandleDeviceFound(TelitDevice device)

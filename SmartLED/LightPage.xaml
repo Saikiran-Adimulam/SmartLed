@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SmartLED.LightPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     Spacing="10" Padding="20,10,20,10">
+            <StackLayout HorizontalOptions="CenterAndExpand"
+                         Spacing="2">
+                <Label HorizontalTextAlignment="Center"
+                       Text="{Binding SelectedLight.Name}"
+                       FontAttributes="Bold"
+                       FontSize="22"
+                       TextColor="#FFAE00"/>
+                <Label HorizontalTextAlignment="Center"
+                       Text="{Binding SelectedLight.Address}"
+                       FontSize="16"
+                       TextColor="#000000"/>
+            </StackLayout>
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="CenterAndExpand"
+                         Spacing="10">
+                <Entry HorizontalOptions="FillAndExpand"
+                       Placeholder="Enter data to send"
+                       Text="{Binding InputText}"
+                       FontSize="14"
+                       TextColor="Black"
+                       PlaceholderColor="Gray"/>
+                <Button HorizontalOptions="FillAndExpand"
+                        Padding="20,0,20,0"
+                        HeightRequest="40"
+                        WidthRequest="180"
+                        BackgroundColor="#FFAE00"
+                        Text="Send Data"
+                        Command="{Binding SendCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

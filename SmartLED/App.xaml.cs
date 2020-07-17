@@ -6,11 +6,14 @@ namespace SmartLED
 {
     public partial class App : Application
     {
+        public static readonly NavigationPage Navigation = new NavigationPage();
+
         public App()
         {
             InitializeComponent();
+            MainPage = Navigation;
 
-            MainPage = new NavigationPage(new MainPage());
+            Navigation.PushAsync(new MainPage());
         }
 
         protected override void OnStart()
